@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+	    <script type="text/javascript" src="https://d3js.org/d3.v4.js"></script>
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	</head>
+	<body>
+		<div>
+			<style>
+				@font-face {
+				    font-family: 'Austin News Deck';
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Italic.eot");
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Italic.eot?#iefix") format("embedded-opentype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Italic.woff2") format("woff2"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Italic.woff") format("woff"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Italic.ttf") format("truetype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Italic.svg#Austin+News+Deck+Web-Italic") format("svg");
+				    font-weight: 400;
+				    font-style: italic;
+				    font-stretch: normal
+				}
+				@font-face {
+				    font-family: 'Austin News Deck';
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.eot");
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.eot?#iefix") format("embedded-opentype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.woff2") format("woff2"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.woff") format("woff"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.ttf") format("truetype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.svg#Austin+News+Deck+Web-Medium") format("svg");
+				    font-weight: 500;
+				    font-style: normal;
+				    font-stretch: normal
+				}
+				@font-face {
+				    font-family: 'Austin News Deck';
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Roman.eot");
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Roman.eot?#iefix") format("embedded-opentype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Roman.woff2") format("woff2"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Roman.woff") format("woff"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Roman.ttf") format("truetype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.svg#Austin+News+Deck+Web-Roman") format("svg");
+				    font-weight: 400;
+				    font-style: normal;
+				    font-stretch: normal
+				}
+				@font-face {
+				    font-family: 'Austin News Deck';
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Semibold.eot");
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Semibold.eot?#iefix") format("embedded-opentype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Semibold.woff2") format("woff2"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Semibold.woff") format("woff"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Semibold.ttf") format("truetype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.svg#Austin+News+Deck+Web-Semibold") format("svg");
+				    font-weight: 600;
+				    font-style: normal;
+				    font-stretch: normal
+				}
+				@font-face {
+				    font-family: 'Austin News Deck';
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Fat.eot");
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Fat.eot?#iefix") format("embedded-opentype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Fat.woff2") format("woff2"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Fat.woff") format("woff"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Fat.ttf") format("truetype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Austin+News+Deck+Web-Medium.svg#Austin+News+Deck+Web-Fat") format("svg");
+				    font-weight: 900;
+				    font-style: normal;
+				    font-stretch: normal
+				}
+				@font-face {
+				    font-family: 'Telesans Agate';
+				    font-style: normal;
+				    font-weight: 400;
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Regular.eot");
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Regular.eot?#iefix") format("embedded-opentype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Regular.woff") format("woff"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Regular.svg#Telesans+Agate-Regular") format("svg"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Regular.ttf") format("truetype")
+				}
+				@font-face {
+				    font-family: 'Telesans Agate';
+				    font-style: normal;
+				    font-weight: 700;
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Bold.eot");
+				    src: url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Bold.eot?#iefix") format("embedded-opentype"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Bold.woff") format("woff"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Bold.svg#Telesans+Agate-Bold") format("svg"), url("https://cf.eip.telegraph.co.uk/assets/_fonts/Telesans+Agate-Bold.ttf") format("truetype")
+				}
+
+
+		        hr {
+		            border: 1px solid #ddd;
+		            margin-top: 0px;
+		            margin-bottom: 7px;
+		        }
+				text {
+					font-family: "Telesans Agate";
+					font-weight: 400;
+					font-size: 16px;
+					fill: #666666;
+				}
+
+		        #chart{
+		          width: 100%;
+		          height: 350px;
+		        }
+
+				.headers {
+					display: inline-block;
+					line-height: 24px;
+					font-family: 'Austin News Deck';
+					padding: 0px;
+					margin: 0px;
+					font-weight: 600;
+				    font-style: normal;
+					font-size: 22px;
+					fill: #333333;
+				}
+
+				#subhead {
+					font-weight: 400;
+				    font-style: italic;
+				}
+
+				.axis path,
+				.axis line {
+				  
+				}
+
+				.tick path,
+				.tick line {
+				  display: inline;
+				  fill: none;
+				  stroke: #333;
+				  stroke-width: 1px;
+				  shape-rendering: crispEdges;
+				}
+
+				.scorer {
+				  stroke: #ddd;
+				  shape-rendering: crispEdges;
+				}
+
+				.y_axis text, .stackedLabel {
+					fill: #333;
+				}
+
+				.source {
+		            font-size: 12px;
+		            text-anchor: end;
+		        }
+
+		        .zero_line {
+		        	stroke: #333;
+		        	stroke-width: 1;
+		        }
+
+		        .small {
+					fill: #666666;
+					text-anchor: start;
+				}
+
+				body {
+					margin: 0px;
+				}
+
+				input, select {
+		              -webkit-appearance: none;
+		              -webkit-border-radius:0; 
+		              -webkit-margin: none;
+		              -webkit-padding: none;
+		              margin-left: 1px;
+		              font-size: 15px; /* Increase font-size */
+		              font-family: "Telesans Agate", sans-serif;
+		              font-weight: 400;
+		              padding: 0px;
+		              padding-left: 4px;
+		              border: 1px solid #e6170c;
+		              width: 118px; /* Add a grey border */
+		              height: 32px;
+		              color: #e6170c;
+		              background-color: #fff;
+		              border-top-left-radius: 4px;
+		              border-bottom-left-radius: 4px;
+		          }
+
+		          select {
+		          	  height: 34px;
+		              width: 100px;
+		              color: #666;
+		              border: 1px solid #666;
+		              border-top-left-radius: 4px;
+		              border-top-right-radius: 4px;
+		              border-bottom-right-radius: 4px;
+		              border-bottom-left-radius: 4px;
+		              padding-right: 30px;
+		          }
+
+		          input:focus, select:focus {
+		              outline: none;
+		          }
+
+		          #search_icon_container {
+		            -webkit-appearance: none;
+		            -webkit-border-radius:0; 
+		            -webkit-margin-top: 0;
+		            -webkit-padding: none;
+		            display: inline-block;
+		            border: 1px solid #e6170c; /* Add a grey border */
+		            height: 32px;
+		            width: 32px;
+		            margin-left: -5px;
+		            margin-top: 0px;
+		            vertical-align: top;
+		            align-items: center;
+		            border-top-right-radius: 4px;
+		            border-bottom-right-radius: 4px;
+		          }
+
+		          .select-container {
+		            position: relative; 
+		            display: inline;
+		          }
+		          
+		          .select-container:after {
+		            content: url("data:image/svg+xml;charset=UTF-8, <svg xmlns='http://www.w3.org/2000/svg' version='1.1' height='32' width='32'><path fill = 'none' d='M.5,0H25.7a3,3,0,0,1,3,3V25.2a3,3,0,0,1-3,3H.5a0,0,0,0,1,0,0V0a0,0,0,0,1,0,0Z'/><polygon fill = '%23666666' points='14.6 13.88 8.12 10.29 7.55 10.86 14.6 17.91 21.65 10.86 21.08 10.29 14.6 13.88'/><line fill = 'none' stroke = '%23666666' stroke-width = '1.5' stroke-miterlimit = '10' x1='0.5' x2='0.5' y2='28.2'/></svg>");
+		            right: 2px;
+		            top: -5px;
+		            position: absolute;
+		            pointer-events: none;
+		          }
+
+		          #container2:after {
+		            right: -2px;
+		          }
+
+		          .blurb {
+		            fill: #000c23;
+		            font-size: 24px;
+		            font-family: 'Austin News Deck';
+		          }
+
+		          #blurb_head {
+		            fill: #e6170c;
+		          }
+
+		          .ui-autocomplete { 
+		            padding: 0px;
+		            position: absolute;
+		            float: left;
+		            left:0px !important;
+		          }
+		          .ui-menu {
+		            font-family: "Telesans Agate";
+		            font-size: 14px;
+		            color: #666;
+		            list-style: none;
+		            float: left;
+		          }
+		          .ui-menu-item-wrapper{
+		            margin-top: 2px;
+		            margin-left: 8px;
+		          }
+		          .ui-menu-item {
+		            vertical-align: middle !important;
+		            border: 0.5px solid #ddd;
+		            left: -5px !important;
+		            width: 155px !important;
+		            height: 22px !important;
+		            background-color: #fff;
+		          }
+		          ul, li{
+		            list-style-type: none;
+		            margin: 0;
+		            padding: 0;
+		          }
+		          .ui-helper-hidden-accessible { display:none; }
+
+		          .ui-menu-item:hover, .ui-menu-item:focus{
+		              /*background: none !important;*/
+		              background-color: #ddd !important;
+		          }
+
+		          .input-container {
+
+		          	display: inline-block;
+		          	vertical-align: top;
+
+		          }
+
+		          .prompt {
+		            font-family: 'Telesans Agate';
+		            font-size: 14px;
+		            line-height: 16px;
+		            margin-bottom: 5px;
+		            font-weight: 400;
+		            color: #e6170c;
+		            padding-right: 2px;
+
+		          }
+
+		          #dropdown{
+		            float: right;
+		          }
+
+		          #prompt_right {
+		          	color: #666;
+		          }
+
+		          .key {
+		            width: 10px;
+		            height: 10px;
+		            -ms-transform: rotate(45deg); /* IE 9 */
+		            webkit-transform: rotate(45deg); /* Safari */
+		            transform: rotate(45deg); /* Standard syntax */
+		            display: inline-block;
+		            margin-right: 3px;
+		          }
+		          .party {
+		            display: inline-block;
+		            margin-right: 5px;
+		            margin-top: 4px;
+		            margin-bottom: 0px;
+		            padding: 0px;
+		            font-family: "Telesans Agate", sans-serif;
+		            font-weight: 400;
+		            color: #333333;
+		            font-size: 15px;
+		          }
+
+		          .ratings {
+		            display: inline-block;
+		            margin: 0px;
+		            padding: 0px;
+		          }
+
+		          #keys {
+		          	margin-bottom: 10px;
+		          }
+
+			</style>
+			
+			<p class="headers">Multi-goal World Cup scorers are getting proportionally rarer</p><br>
+			<p id = "subhead" class="headers">Each tile represents one goalscorer, darker blues mean more goals</p><br/>
+	        <div id="keys">
+		         <div class = "party"><p class="ratings">Goals:</p></div>
+		         <div class = "party"><div class="key" style="background-color: #56b6df;"></div><p class="ratings"> 1</p></div>
+		         <div class = "party"><div class="key" style="background-color: #3888c3;"></div><p class="ratings"> 2</p></div>
+		         <div class = "party"><div class="key" style="background-color: #005ca8;"></div><p class="ratings"> 3</p></div>
+		         <div class = "party"><div class="key" style="background-color: #293c84;"></div><p class="ratings"> 4</p></div>
+		         <div class = "party"><div class="key" style="background-color: #2f1a62;"></div><p class="ratings"> 5+</p></div>
+	        </div>
+			<div >
+				<div class = "input-container">
+					<div class = "prompt">Search or click chart</div>
+			          <input type="text" id= "search1" value = "Cristiano Ronaldo">
+			          <div id="search_icon_container">
+			            <svg class="search_button" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path id="search_path" fill="#e6170c" transform='translate(7 7)' d="M13.541,15.553l-2.687-5.375a5.468,5.468,0,1,0-.894.447L12.647,16ZM3.459,5.5a4.5,4.5,0,1,1,4.5,4.5A4.505,4.505,0,0,1,3.459,5.5Z"/></svg>
+			          </div>
+			          <div id="autocomplete"></div>
+		      	</div>
+		      	<div class = "input-container" id = "dropdown">
+		      		<div id = "prompt_right" class="prompt">Filter by team</div>
+			    	<div class="select-container" id = "container2">
+				      	<select id="team1" class="teamSelect">
+						<option value='ALL'>All</option>
+						<option value='ALG'>Algeria</option>
+						<option value='ANG'>Angola</option>
+						<option value='ARG'>Argentina</option>
+						<option value='AUS'>Australia</option>
+						<option value='AUT'>Austria</option>
+						<option value='BEL'>Belgium</option>
+						<option value='BOL'>Bolivia</option>
+						<option value='BIH'>Bosnia and Herz.</option>
+						<option value='BRA'>Brazil</option>
+						<option value='BUL'>Bulgaria</option>
+						<option value='CMR'>Cameroon</option>
+						<option value='CHI'>Chile</option>
+						<option value='COL'>Colombia</option>
+						<option value='CRC'>Costa Rica</option>
+						<option value='CRO'>Croatia</option>
+						<option value='CUB'>Cuba</option>
+						<option value='CZE'>Czechia</option>
+						<option value='TCH'>Czechoslovakia</option>
+						<option value='DEN'>Denmark</option>
+						<option value='GDR'>East Germany</option>
+						<option value='ECU'>Ecuador</option>
+						<option value='EGY'>Egypt</option>
+						<option value='SLV'>El Salvador</option>
+						<option value='ENG'>England</option>
+						<option value='FRA'>France</option>
+						<option value='GER'>Germany</option>
+						<option value='GHA'>Ghana</option>
+						<option value='GRE'>Greece</option>
+						<option value='HAI'>Haiti</option>
+						<option value='HON'>Honduras</option>
+						<option value='HUN'>Hungary</option>
+						<option value='ISL'>Iceland</option>
+						<option value='IRN'>Iran</option>
+						<option value='IRQ'>Iraq</option>
+						<option value='IRL'>Ireland</option>
+						<option value='ISR'>Israel</option>
+						<option value='ITA'>Italy</option>
+						<option value='CIV'>Ivory Coast</option>
+						<option value='JAM'>Jamaica</option>
+						<option value='JPN'>Japan</option>
+						<option value='KUW'>Kuwait</option>
+						<option value='MEX'>Mexico</option>
+						<option value='MAR'>Morocco</option>
+						<option value='NED'>Netherlands</option>
+						<option value='NZL'>New Zealand</option>
+						<option value='NGA'>Nigeria</option>
+						<option value='PRK'>North Korea</option>
+						<option value='NIR'>Northern Ireland</option>
+						<option value='NOR'>Norway</option>
+<option value= 'PAN'>Panama</option>
+						<option value='PAR'>Paraguay</option>
+						<option value='PER'>Peru</option>
+						<option value='POL'>Poland</option>
+						<option value='POR'>Portugal</option>
+						<option value='ROU'>Romania</option>
+						<option value='RUS'>Russia</option>
+						<option value='KSA'>Saudi Arabia</option>
+						<option value='SCO'>Scotland</option>
+						<option value='SEN'>Senegal</option>
+						<option value='SRB'>Serbia</option>
+						<option value='SCG'>Serbia and Mont.</option>
+						<option value='SVK'>Slovakia</option>
+						<option value='SVN'>Slovenia</option>
+						<option value='RSA'>South Africa</option>
+						<option value='KOR'>South Korea</option>
+						<option value='URS'>Soviet Union</option>
+						<option value='ESP'>Spain</option>
+						<option value='SWE'>Sweden</option>
+						<option value='SUI'>Switzerland</option>
+						<option value='TOG'>Togo</option>
+						<option value='TUN'>Tunisia</option>
+						<option value='TUR'>Turkey</option>
+						<option value='UAE'>UAE</option>
+						<option value='UKR'>Ukraine</option>
+						<option value='URU'>Uruguay</option>
+						<option value='USA'>USA</option>
+						<option value='WAL'>Wales</option>
+						<option value='FRG'>West Germany</option>
+						<option value='YUG'>Yugoslavia</option>
+					    </select>
+					</div>
+				</div>
+			</div>
+			<div id='chart'></div><br>
+			<script type="text/javascript">
+				var jqueryUI = jQuery.ui; 
+				$.getJSON('https://spreadsheets.google.com/feeds/list/1DNOSXbDvkDRX0zjCshL3tJ54AvUhqtpG99w89o7hDYI/o746vdd/public/values?alt=json', function(data) {
+
+					data = data["feed"]["entry"];
+
+					d3.selection.prototype.moveToBack = function() {  
+						    return this.each(function() { 
+						        var firstChild = this.parentNode.firstChild; 
+						       	if (firstChild) { 
+						            this.parentNode.insertBefore(this, firstChild); 
+						        } 
+						    });
+						};
+					
+					// THIS IS OUR DATA - it's an array of javascript objects
+					var names = [];
+					var newName;
+
+					data.forEach(function(d){
+
+						var found = names.find(function(element) {return element == d.gsx$name.$t;});	
+						if(found === undefined) {
+							names.push(d.gsx$name.$t);
+						}
+			            
+			        });
+
+			        jqueryUI.autocomplete({
+			                    messages: {
+			                        noResults: '',
+			                        results: function () {
+			                        }
+			                    },
+			                    appendTo: "#autocomplete",
+			                    source: names,
+			                    minLength: 3,
+			                    change: function (event, ui) {
+			                        if (ui.item != null && ui.item.value != "") {
+			                            getPlayer(ui.item.value);
+			                        }
+			                    },
+			                    select: function (event, ui) {
+			                        var el = $(this);
+			                        setTimeout(function () {
+			                            el.blur();
+			                        }, 100);
+			                    },
+			                    focus: function (event, ui) {
+			                          event.preventDefault();
+			                          $(this).val(ui.item.value);
+			                    },
+			                    response: function (event, ui) {
+			                        if (!ui.content.length) {
+			                            var noResult = {value: "", label: "Not found"};
+			                            ui.content.push(noResult);
+			                        }
+			                    }
+			          },$('#search1'));
+
+			        function getPlayer(entry) { 
+			            var player = data.find(function(element) {return element.gsx$name.$t == entry;});
+			            highlight(player);
+			        }
+
+
+					var nested_data = d3.nest()
+                              .key(function(d) { return d.gsx$year.$t;})
+                              .entries(data);
+
+
+                    for (i = 22; i > 1; i--) {
+                    	if (i > 4) {
+                    		nested_data[i] = nested_data[i-2];
+                    	} else if(i == 4) {
+                    		nested_data[i] = {key: "1946", values: []};
+                    	} else if(i == 3) {
+                    		nested_data[i] = {key: "1942", values: []};
+                    	}
+                    }		
+
+					//###################################################################################################################################
+					var margin = {top: 0, right: 5, bottom: 40, left: 0};
+					// Set up variables that we'll refer to in the making of our chart
+					var chart_div = d3.select("#chart"),
+						width,
+						tick_values,
+						scorer,
+						rectWidth,
+						rowDepth,
+						height = parseInt(d3.select("#chart").style('height'), 10) - margin.top - margin.bottom,
+						svg = d3.select("#chart").append("svg").attr("height", height + margin.top + margin.bottom),
+						chart_area = svg.append('g').attr("transform", "translate(" + margin.left + "," + margin.top + ")"),
+						rectHeight,
+						xAxis,
+						yAxis;
+
+					// Create scales
+					var y = d3.scaleLinear()
+							   .domain([0, 116])
+							   .rangeRound([height, 0]);
+
+					var x = d3.scaleBand()
+							   .domain(nested_data.map(function(d) {return d.key;}));
+				
+
+				    // Draw chart
+					draw();		        
+			
+					// Fetches width of page and sets chart dimensions
+					function getDimensions(){
+			            width = parseInt(d3.select("#chart").style('width'), 10) - margin.right - margin.left;
+			            svg.attr("width", width + margin.right + margin.left);
+			            x.rangeRound([0, width]);
+
+			            if(width + margin.right + margin.left < 480) {
+			              tick_values =	[1934, 1966, 1998];
+			              rectHeight = height/39;
+			              rectWidth = (x.bandwidth()-2)/3;
+			              rowDepth = 3;
+
+			              d3.selectAll(".headers")
+			                .style("font-size", "18px")
+			                .style("line-height", "20px");
+			            } else {
+			               tick_values = [1934, 1954, 1962, 1970, 1978, 1986, 1994, 2002, 2010, 2018];
+			               if(width + margin.right + margin.left < 650) {
+			               	
+			               	rectHeight = height/29;
+			               	rectWidth = (x.bandwidth()-4)/4;
+			               	rowDepth = 4;
+			               } else {
+			               	rectHeight = height/24;
+			               	rectWidth = (x.bandwidth()-4)/5;
+			               	rowDepth = 5;
+			               }
+
+			               d3.selectAll(".headers")
+			                .style("font-size", "22px")
+			                .style("line-height", "24px");
+			            }
+
+			            
+			        }
+
+			        // Removes any existing chart elements and then re-adds them
+			        function plotStuff(){
+			        	d3.selectAll(".axis").remove();
+			        	d3.selectAll(".tournament").remove();
+			        	d3.selectAll(".blurb").remove();
+			        	d3.selectAll("#playerHeader").remove();
+
+			        	//Plot the bars
+				      	var tournaments = chart_area.selectAll(".tournament") 
+				    	  		.data(nested_data).enter()
+				      		  .append("g")
+					  		  .attr("class", "tournament")
+					  		  .attr("transform", d => "translate(" + x(d.key) + "," + 0 + ")")
+
+					  	tournaments.selectAll("rect")
+								     .data(d => d.values).enter()
+								   .append("rect")
+								   .attr("class", d => d.gsx$nation.$t + " scorer")
+								   .attr("x", function(d, i) { return (i%rowDepth)*rectWidth; })
+								   .attr("y", function(d, i) { return height - (Math.floor(i/rowDepth)*rectHeight);})
+								   .attr("width", rectWidth)
+								   .attr("height", rectHeight)
+								   .attr("fill", function(d){
+								   		if (+d.gsx$goals.$t == 1){
+								      		return "#56b6df";
+								      	} else if (+d.gsx$goals.$t == 2) {
+								      		return "#3888c3";
+								      	} else if (+d.gsx$goals.$t == 3) {
+								      		return "#005ca8";
+								      	} else if (+d.gsx$goals.$t == 4) {
+								      		return "#293c84";
+								      	} else {
+								      		return "#2f1a62";
+								      	}
+								   })
+								   .attr("stroke-width", function(){return width > 400 ? 1 : 0})
+								   .attr("stroke-opacity", 0.2)
+								   .attr("id", d => "player" + d.gsx$id.$t)
+								   .on("mouseover", d => highlight(d))
+								   .on("click", d => highlight(d));
+
+						chart_area.append("g")
+								  .attr("transform", "translate(" + 5 + "," + 30 + ")")
+								  .append("text")
+								  .attr("class", "blurb")
+								  .attr("id", "goals")
+								  .text("5 World Cup goals");
+
+						chart_area.append("g")
+			              .attr("class", "axis axis_x")
+			              .attr("transform", "translate(0," + (height + 12) + ")")
+			              .call(d3.axisBottom(x).tickValues(tick_values).tickSizeOuter(0).tickPadding(5));
+				                      
+			        }
+
+			        function draw(){
+			            getDimensions();
+			            plotStuff();
+			            getPlayer("Cristiano Ronaldo");     	
+			        }
+
+			        function highlight(d) {
+			        	d3.selectAll(".selected_player")
+                       	  .classed("selected_player", false)
+                       	  .attr("fill", function(d){
+						  if (+d.gsx$goals.$t == 1){
+							return "#56b6df";
+						  } else if (+d.gsx$goals.$t == 2) {
+							return "#3888c3";
+						  } else if (+d.gsx$goals.$t == 3) {
+							return "#005ca8";
+						  } else if (+d.gsx$goals.$t == 4) {
+							return "#293c84";
+						  } else {
+							return "#2f1a62";
+						  }
+						});
+				                       
+					    scorer = d3.selectAll("#player" + d.gsx$id.$t)
+					   	  .classed("selected_player", true)
+					      .attr("fill", "#e6170c");
+
+					    var player = data.find(function(element) {return element.gsx$id.$t == d.gsx$id.$t;});
+
+					    $("#goals").text(player.gsx$total.$t + (player.gsx$total.$t < 2 ? " World Cup goal" : " World Cup goals"));
+
+					    $("#search1")[0].value = d.gsx$name.$t;
+			        }
+
+			        $('#team1').on('change', function() {
+			            
+			            
+			            d3.selectAll(".scorer")
+			              .attr("fill-opacity", d => ($("#team1")[0].value == "ALL" ? 1 : (d.gsx$nation.$t == $("#team1")[0].value ? 1:0.1)));
+			            
+			        })
+
+
+			        var resizeTO;
+
+			        d3.select(window).on('resize', function () {
+			          if (resizeTO) {
+			              clearTimeout(resizeTO);
+			          }
+			          resizeTO = setTimeout(draw, 350);
+			        });
+			    });
+			</script>
+		</div>
+	</body>
+</html>
