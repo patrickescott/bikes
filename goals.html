@@ -667,15 +667,6 @@
 			            
 			        })
 
-
-			        var resizeTO;
-
-			        d3.select(window).on('resize', function () {
-			          if (resizeTO) {
-			              clearTimeout(resizeTO);
-			          }
-			          resizeTO = setTimeout(draw, 350);
-			        });
 			    });
 			</script>
 		</div>
